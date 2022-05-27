@@ -1,0 +1,21 @@
+header {
+    background-color: cornflowerblue;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px
+}
+
+footer {
+    background-color: cornflowerblue;
+    
+
+}
+
+nav {
+
+    padding-top: 20px;
+    padding-bottom: 30px;
+    padding-left: 10px;
+    padding-right: 10px
+}
