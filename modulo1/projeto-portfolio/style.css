@@ -11,6 +11,25 @@
     text-decoration: none; /* significa que os hyperlinks não serão underlined */
   }
 
+  nav {
+    display: block;
+    text-align: right;
+    font-size:large;
+
+  }
+
+  form {
+    display: block;
+    text-align: left;
+  }
+
+  input[type=text] {
+    width: 80%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+  }
+
   body {
     background-color: whitesmoke; 
     color: black; 
