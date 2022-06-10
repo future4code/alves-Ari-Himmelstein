@@ -10,31 +10,16 @@ const MainContainer = styled.div`
 `
 
 class App extends React.Component {
-  
   render() {
-
-        const listaDePosts = this.state.posts.map((post) => {
-      console.log(listaDePosts)
-      return({listaDePosts})
-      
-          })
-
-    return(
-      state = {
-
-       
-      
-      }
+    return (
       <MainContainer>
         <Post
           nomeUsuario={'paulinha'}
           fotoUsuario={'https://picsum.photos/50/50'}
           fotoPost={'https://picsum.photos/200/150'}
         />
-      /MainContainer>
-      
-     
-    )
+      </MainContainer>
+    );
   }
 }
 
