@@ -1,7 +1,7 @@
 
 import './App.css';
 import React from 'react';
-import Whatslab from './Componentes/Whatslab';
+import Whatslab from './Components/Whatslab';
 
 
 class App extends React.Component {
