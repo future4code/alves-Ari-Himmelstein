@@ -10,7 +10,7 @@ const MainContainer = styled.div `
   margin: 70px auto;
   padding: 20px;
   h2 {
-      font-size: 25pt;
+      font-size: 20pt;
       color: solid blue;
   }
   `
@@ -24,7 +24,7 @@ const CarddUser = styled.div `
   display: flex;
   justify-content: space-between;
 button {
-    width: 100px;
+    width: 50px;
     height: 30px;
     background-color: blue;
     color: white;
@@ -101,15 +101,15 @@ export default class Userlist extends Component {
           this.getAllUsers();
         })
         .catch((err) => {
-          alert(err.res);
+          alert(err.response.data);
         });
     }
   };
   render() {
     const showUsers = this.state.usersList.map((user) => {
       return (
-        <CarddUser>
-          <li key={user.id}>
+        <CarddUser key={user.id} >
+          <li >
              {user.name}
           </li>
           <button onClick={() => this.deleteUser(user.id)}> x </button>

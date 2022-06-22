@@ -10,7 +10,7 @@ const MainContainer = styled.div `
   margin: 150px auto;
   padding: 20px;
   h2 {
-      font-size: 25pt;
+      font-size: 20pt;
       color: solid blue;
   }`
 

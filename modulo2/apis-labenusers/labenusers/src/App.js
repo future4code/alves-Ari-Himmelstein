@@ -13,7 +13,7 @@ export default class App extends React.Component {
   };
 
   selectPage = () => {
-    console.log(this.state.page)
+   
     switch (this.state.page) {
       case "signup":
         return <Signup pageUser={this.pageUser} />;
