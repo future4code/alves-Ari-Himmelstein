@@ -4,14 +4,14 @@ import styled from 'styled-components'
 
 
 const ContainerCreatePlaylist = styled.div `
-
+   
     text-align: center;
     width: 500px;
     margin: 150px auto;
     padding: 20px;
     h2 {
-        font-size: 25pt;
-        color: #15C377;
+        font-size: 20pt;
+        color: solid blue;
     }
 `
 const ContainerInputs = styled.div`
@@ -30,9 +30,9 @@ const Button = styled.div`
         margin-top: 20px;
         width: 200px;
         height: 30px;
-        background-color: #15C377;
+        background-color: blue;
         color: white;
-        border: 1px solid #15C377;   
+        border: 1px blue;   
     }
     button:hover {
         cursor: pointer;
@@ -44,6 +44,10 @@ export default class CreatePlayList extends Component {
 
     state = {
         playlistName: "",
+      };
+
+      onChangePlayListName = (event) => {
+        this.setState({ playlistName: event.target.value });
       };
     
       createPlaylist = () => {
@@ -84,7 +88,7 @@ export default class CreatePlayList extends Component {
             <input
                 placeholder={"Nome da Playlist"}
                 value={this.state.playlistName}
-                onChange={this.criaPlaylist}
+                onChange={this.onChangePlayListName}
             />
 
 

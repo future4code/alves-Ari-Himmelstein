@@ -5,7 +5,7 @@ import ShowMusic from './ShowMusic'
 
 const ContainerShowPlaylist = styled.div `
 
-    font-family: Open sans;
+  
     text-align: center;
     width: 400px;
     margin: auto;
@@ -13,11 +13,11 @@ const ContainerShowPlaylist = styled.div `
     margin: 70px auto;
     padding: 20px;
     h2 {
-        font-size: 25pt;
-        color: #15C377;
+        font-size: 20pt;
+        color: solid blue;
     }
 `
-const CardMusic = styled.div`
+const CardPlaylist = styled.div`
 
     border-bottom: 1px solid black;
     padding: 20px;
@@ -27,7 +27,7 @@ const CardMusic = styled.div`
     display: flex;
     justify-content: space-between;
     button {
-        width: 100px;
+        width: 50px;
         height: 30px;
         background-color: #F74044;
         color: white;
@@ -48,9 +48,9 @@ const Button = styled.div`
         margin-top: 20px;
         width: 200px;
         height: 30px;
-        background-color: #15C377;
+        background-color: blue;
         color: white;
-        border: 1px solid #15C377;   
+        border: 1px solid blue;   
     }
     button:hover {
         cursor: pointer;
@@ -90,16 +90,16 @@ export default class ShowPlayList extends Component {
         })
     }
 
-    deleteUser = (id) => {
-        axios.delete (`https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users/${id}`, {
+    deleteList = (id) => {
+        axios.delete ( `https://us-central1-labenu-apis.cloudfunctions.net/labefy/playlists/${id}`, {
             headers: {
-                Authorization: 'guilherme-amaral-lovelace'
+                Authorization: 'ari-himmelstein-alves'
             }
         })
 
         .then((res)=> {
             alert ('Usuário removido')
-            this.getAllUsers()
+            this.getPlaylist()
         })
         .catch ((err) => {
             alert ('Ocorreu um problema, tente novamente!')
@@ -115,23 +115,45 @@ export default class ShowPlayList extends Component {
       };
 
   render() {
+    if (this.state.pageShowMusic){
+        return (       
+                <ShowMusic
+                pageShow={this.pageShow}
+                playListSelect={this.state.playListSelect}
+                />
+        );
+    }
+    const showlist = this.state.playlist.map((playlists) =>{
+        return (
+
+            <CardPlaylist key={playlists.id}>
+
+                                         
+                <li>
+                    {playlists.name}
+                </li>
+
+                <button onClick={this.props.ShowMusicpage}>Musicas</button>
+                <button onClick={() => this.deleteList(playlists.id)}>X</button>
+           
+            </CardPlaylist>
+        );
+    });
+
     return (
-        if (this.state.pageShowMusic){
-            <ShowMusic
-            pageShow
         <ContainerShowPlaylist>
-                
-        <h2>Playlists</h2>
-        
-        <div>
-            {playlist}
-        </div>
+            <h2>Lista de Playlist</h2>
+            {showlist}
+           <Button>
+          
+            <button onClick={this.props.pageCreate}>Adicionar Playlist</button>
+           
+           </Button>
 
-        <Button>
-            <button onClick={this.props.irParaCadastro}>Criar Playlist</button>
-        </Button>
+        </ContainerShowPlaylist>
 
-    </ContainerShowPlaylist>
     )
-  }
+
+}
+
 }
