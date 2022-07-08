@@ -1,21 +1,9 @@
-import React from "react"
-import Header from "./components/Header/Header";
-import MatchList from "./components/MatchList/MatchList";
-import Profile from "./components/Profile/Profile";
-import { AppContainer } from "./styled";
+import React from 'react'
+import Head from './components/Head/Head'
 
-
-function App() {
-
-
+export default function App() {
   return (
-    <AppContainer>
-      <Header/>
-      <MatchList/>
-      <Profile/>
-    </AppContainer>
-    
-  );
+    <Head />
+  )
 }
 
-export default App;
