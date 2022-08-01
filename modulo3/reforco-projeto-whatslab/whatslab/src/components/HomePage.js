@@ -46,23 +46,23 @@ export default function HomePage() {
   const [message, setMessage] = useState("")
   const [msglist, setMsgList] = useState([])
 
-  const onChangeSenderInput = (event) => {
-    
-    setSender({sender: event.target.value})
-  }
+  
 
-  const onChangeMsgInput = (event) => {
-      
-      setMessage({message: event.target.value})
-  }
+  const onChangeSenderInput = (e) => setSender(e.target.value)
 
-  const addMsg = () => {
+  const onChangeMsgInput =(e) => setMessage(e.target.value)
+
+
+  
+
+
+  const onclickButton = () => {
 
     const msg = {
       sender,
       message
     }
-
+    console.log(msg)
     const newMsgList = [...msglist, msg]
       //envia a mensagem
       setMsgList(newMsgList)
@@ -96,7 +96,7 @@ export default function HomePage() {
       <MessageSet 
         onChangeSenderInput = {onChangeSenderInput}
         onChangeMsgInput = {onChangeMsgInput}
-        onclick = {addMsg}
+        onclick = {onclickButton}
         sender= {sender}
         message= {message}
 

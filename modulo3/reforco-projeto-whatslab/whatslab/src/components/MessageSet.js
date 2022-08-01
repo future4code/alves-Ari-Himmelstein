@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import send from '../img/send.svg'
+// import send from '../img/send.svg'
 
 
 const SenderInput = styled.input`
@@ -37,9 +37,9 @@ const SenderInput = styled.input`
     margin-bottom: 0.5em;
     `
 
-    const Img = styled.img`
-    max-height: 2em;
-    `
+    // const Img = styled.img`
+    // max-height: 2em;
+    // `
 
 
 export default function MessageSet(props) {
@@ -55,12 +55,9 @@ export default function MessageSet(props) {
         placeholder="mensagem"
         onChange={props.onChangeMsgInput}
         />
-      <Button onClick={props.addMsg}
+      <Button onClick={props.onClick}
        >enviar</Button>
-       
-
-    
-    
-    </InputsContainer>
+     
+      </InputsContainer>
   )
 }
