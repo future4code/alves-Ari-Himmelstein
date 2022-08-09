@@ -1,0 +1,15 @@
+{
+  "name": "exercicio1",
+  "version": "1.0.0",
+  "description": "receba seu nome e sua idade. Após receber estes valores, imprima no console uma mensagem",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./index.js"
+  },
+  "keywords": [
+    "exercicio1"
+      ],
+  "author": "Ari Himmelstein",
+  "license": "ISC"
+}

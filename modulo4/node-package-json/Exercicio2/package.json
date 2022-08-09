@@ -1,0 +1,15 @@
+{
+  "name": "exercicio2",
+  "version": "1.0.0",
+  "description": "aplicação Node que recebe uma string representando uma operação matemática e dois valores numéricos. O retorno deverá ser o resultado da operação selecionada utilizando os 2 valores fornecidos.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./index.js"
+  },
+  "keywords": [
+    "exercicio2"
+  ],
+  "author": "Ari Himmelstein",
+  "license": "ISC"
+}
