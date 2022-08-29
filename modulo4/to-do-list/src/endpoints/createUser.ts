@@ -18,6 +18,8 @@ export default async function createUser(
             res
                 .status(400)
                 .send('Preencha os campos "name", "nickname" e "email"')
+
+                return
     }
      // consultar o banco de dados
 
@@ -38,6 +40,7 @@ export default async function createUser(
         .send('Usuário criado com sucesso!')
         
     } catch (error: any) {
+        console.log(error)
         res.status(400).send({
             message: error.message || error.sqlMessage
         })
