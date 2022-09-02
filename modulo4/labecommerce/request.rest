@@ -1,0 +1,13 @@
+POST http://localhost:3003/user
+Content-Type: application/json
+
+{
+    "name": "José",
+    "email": "jojo@uol.com.br",
+    "password": "zeca22"
+}
+
+###
+GET  http://localhost:3003/userS
+
+
