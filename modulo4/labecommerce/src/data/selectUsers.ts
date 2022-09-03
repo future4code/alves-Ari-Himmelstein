@@ -1,8 +1,20 @@
-import { connection } from "./connections";
+import { User } from "../types"
+import { connection } from "./connections"
 
-export default async function selectUsers():Promise<userData[]> {
+
+export const selectUsers = async(): Promise <User[]> => {
     
-    const result = await connection("labecommerce_users")
+    const users = await connection("labecommerce_users")
+        .select("labecommerce_users.id","labecommerce_users.name","labecommerce_users.email")
 
-    console.log(result)
+    return users
+}
+
+
+export const getUserById = async(userId: string): Promise <User> => {
+
+    const user  = await connection("labecommerce_users")
+        .where({id: userId})
+
+        return user[0]
 }

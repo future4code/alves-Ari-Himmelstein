@@ -2,12 +2,42 @@ POST http://localhost:3003/user
 Content-Type: application/json
 
 {
-    "name": "José",
-    "email": "jojo@uol.com.br",
-    "password": "zeca22"
+    "name": "flavio",
+    "email": "fsoares@hotmail.com.",
+    "password": "fico123"
 }
 
 ###
-GET  http://localhost:3003/userS
 
+GET  http://localhost:3003/users
+
+###
+
+POST http://localhost:3003/products
+Content-Type: application/json
+
+{
+  "name" : "Cama Box Casal",
+  "price" : 2450,
+  "imageUrl" : "https://a-static.mlcdn.com.br/1500x1500/cama-casal-madri-espresso-moveis-canion/madeiramadeira-openapi/352175/68815986d6a904c1ff0935989483625f.jpg"
+}
+
+###
+
+GET  http://localhost:3003/products
+
+###
+
+POST http://localhost:3003/purchases
+Content-Type: application/json
+
+{
+   "userId" : "1662082113042",
+    "productId": "1662151757504",
+   "quantity": 3
+}
+
+###
+
+GET http://localhost:3003/1662082113042/purchases
 
