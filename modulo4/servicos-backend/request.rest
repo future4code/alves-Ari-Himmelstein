@@ -1,0 +1,5 @@
+GET http://localhost:3003/address/05434050
+
+###
+
+POST http://localhost:3003/user/address/05434050
