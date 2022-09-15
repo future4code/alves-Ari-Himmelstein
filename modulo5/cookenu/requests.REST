@@ -1,0 +1,10 @@
+# Cadastro de Usuário
+POST http://localhost:3003/signup
+Content-Type: application/json
+
+{
+    "name": "Massimo",
+    "email": "botura@gmail.com",
+    "password": "nhoghi12",
+    "role": "admin"
+}
