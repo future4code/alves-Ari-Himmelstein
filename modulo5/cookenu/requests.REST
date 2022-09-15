@@ -1,10 +1,52 @@
-# Cadastro de Usuário
+# Signup
 POST http://localhost:3003/signup
 Content-Type: application/json
 
 {
-    "name": "Massimo",
-    "email": "botura@gmail.com",
-    "password": "nhoghi12",
-    "role": "admin"
+    "name": "Claude",
+    "email": "troiugrau@gmail.com",
+    "password": "croissant22",
+    "role": "user"
+
 }
+
+###
+# Login 
+# @name login
+POST http://localhost:3003/login
+Content-Type: application/json
+
+{
+    "email": "botura@gmail.com",
+    "password": "nhoghi12"
+}
+
+###
+@token = {{login.response.body.token}}
+# Pegar próprio perfil
+GET http://localhost:3003/user/profile
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+# Pegar perfil de outro usuário
+GET http://localhost:3003/user/3a15d6e5-db81-43d6-8f28-30cf422bb82b
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+# Criar Receita
+POST http://localhost:3003/recipe
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+    "title": "Ossobuco",
+    "description": "Veal shanks are tough cuts of meat with a lot of connective tissue in them. Braising them slowly in liquid breaks down those chewy bits. "
+}
+
+###
+# Pegar receita 
+GET http://localhost:3003/recipe/70d2751e-8501-4009-9ef7-181ba366c36b
+Content-Type: application/json
+Authorization: {{token}}

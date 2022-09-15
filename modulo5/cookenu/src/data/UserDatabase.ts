@@ -38,5 +38,21 @@ export class UserDatabase extends BaseDatabase {
         }
     }
 
+    getUserById = async (id: string): Promise<any> => {
+        try {
+            const result = await BaseDatabase.connection()
+                .select('id', 'name', 'email', 'role')
+                .from(UserDatabase.TABLE_NAME)
+                .where({ id })
+
+            return result[0] && User.toUserModel(result[0])
+            
+        } catch (error: any) {
+            console.log(error)
+            throw new Error(error.sqlMessage || error.message)
+        }
+    }
+
+
 }
 
