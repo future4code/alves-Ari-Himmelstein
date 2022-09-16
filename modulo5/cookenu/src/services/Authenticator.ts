@@ -1,7 +1,10 @@
 import { sign, verify } from "jsonwebtoken"
 import { authenticationData } from "../types"
+import dotenv from "dotenv"
 
-export class Authenticator {
+dotenv.config()
+
+ export class Authenticator {
 
     generateToken = (payload: authenticationData): string => {
         const token = sign(

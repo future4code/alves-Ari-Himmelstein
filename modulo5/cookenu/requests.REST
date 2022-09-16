@@ -50,3 +50,59 @@ Authorization: {{token}}
 GET http://localhost:3003/recipe/70d2751e-8501-4009-9ef7-181ba366c36b
 Content-Type: application/json
 Authorization: {{token}}
+
+###
+
+# Seguir um usuário
+POST http://localhost:3003/user/follow
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+    "followed_id": "6d0af7ed-3f25-405f-9c0d-b17050ae4084"
+}
+
+###
+
+# Deixar de seguir um usuário
+POST http://localhost:3003/user/unfollow
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+    "followed_id": "6d0af7ed-3f25-405f-9c0d-b17050ae4084"
+}
+
+###
+# Pegar Feed de um usuário com as receitas que ele seguiu
+GET http://localhost:3003/user/feed
+Content-Type: application/json
+Authorization: {{token}}
+
+
+###
+
+# Editar uma receita própria
+PUT http://localhost:3003/recipe/88159517-8e2b-4818-b2fc-431d258b495f
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+    "title": "",
+    "description": ""
+}
+
+###
+
+# Deletar uma receita própria
+DELETE http://localhost:3003/recipe/8b666941-6286-4d55-b784-934d220d5552
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+# Deletar um usuário
+DELETE http://localhost:3003/user/688a5c20-173c-4015-83f2-17cafee6744a
+Content-Type: application/json
+Authorization: {{token}}
+

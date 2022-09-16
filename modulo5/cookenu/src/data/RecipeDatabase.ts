@@ -7,7 +7,7 @@ export class RecipeDatabase extends BaseDatabase {
 
     insertRecipe = async (recipe: Recipe): Promise<void> => {
         try {
-            await BaseDatabase.connection()
+            await this.getConnection()
                 .insert({
                     id: recipe.getId(),
                     title: recipe.getTitle(),
@@ -25,7 +25,7 @@ export class RecipeDatabase extends BaseDatabase {
 
     getRecipeById = async (id: string): Promise<Recipe | undefined> => {
         try {
-            const result = await BaseDatabase.connection()
+            const result = await this.getConnection()
                 .select("*")
                 .from(RecipeDatabase.TABLE_NAME)
                 .where({ id })
@@ -36,6 +36,48 @@ export class RecipeDatabase extends BaseDatabase {
             throw new Error(error.sqlMessage || error.message)
         }
     }
+    updateRecipe = async (id: string, title: string, description: string): Promise<void> => {
+        try {
+            await this.getConnection()
+                .update({
+                    title,
+                    description
+                })
+                .from(RecipeDatabase.TABLE_NAME)
+                .where({ id })
+
+        } catch (error: any) {
+            throw new Error(error.sqlMessage || error.message)
+        }
+    }
+    
+    deleteRecipe = async (id: string): Promise<void> => {
+        try {
+            await this.getConnection()
+                .delete()
+                .from(RecipeDatabase.TABLE_NAME)
+                .where({ id })
+
+        } catch (error: any) {
+            throw new Error(error.sqlMessage || error.message)
+        }
+    }
+
+    getUserRecipes = async (userId: string): Promise<Recipe[]> => {
+        try {
+            const result = await this.getConnection()
+                .select("*")
+                .from(RecipeDatabase.TABLE_NAME)
+                .where({ creator_userId: userId })
+
+            return result.map(recipe => Recipe.toRecipeModel(recipe))
+
+        } catch (error: any) {
+            throw new Error(error.sqlMessage || error.message)
+        }
+    }
+
+
 
     
 }

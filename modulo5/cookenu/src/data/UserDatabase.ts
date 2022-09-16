@@ -3,12 +3,18 @@ import { User } from "../model/User";
 import { BaseDatabase } from "./BaseDatabase";
 
 export class UserDatabase extends BaseDatabase {
+    selectRecipesUserFeed(id: any) {
+        throw new Error("Method not implemented.");
+    }
+    deleteUser(id: string) {
+        throw new Error("Method not implemented.");
+    }
 
     private static TABLE_NAME = "cookenu_user"
 
     getUserByEmail = async (email: string): Promise<any> => {
         try {
-            const result = await BaseDatabase.connection()
+            const result = await this.getConnection()
                 .select('*')
                 .from(UserDatabase.TABLE_NAME)
                 .where({ email })
@@ -23,7 +29,7 @@ export class UserDatabase extends BaseDatabase {
     
     insertUser = async (user: User): Promise<void> => {
         try {
-            await BaseDatabase.connection()
+            await this.getConnection()
                 .insert({
                     id: user.getId(),
                     name: user.getName(),
@@ -40,7 +46,7 @@ export class UserDatabase extends BaseDatabase {
 
     getUserById = async (id: string): Promise<any> => {
         try {
-            const result = await BaseDatabase.connection()
+            const result = await this.getConnection()
                 .select('id', 'name', 'email', 'role')
                 .from(UserDatabase.TABLE_NAME)
                 .where({ id })
@@ -53,6 +59,64 @@ export class UserDatabase extends BaseDatabase {
         }
     }
 
+    insertFollow = async (userId: string, followedId: string): Promise<void> => {
+        try {
+            await this.getConnection()
+                .insert({
+                    follower_id: userId,
+                    followed_id: followedId,
+                })
+                .into('cookenu_follower_connection')
 
+        } catch (error: any) {
+            throw new Error(error.sqlMessage || error.message)
+        }
+    }
+
+    deleteFollow = async (userId: string, userToUnfollowID: string): Promise<void> => {
+        try {
+            await this.getConnection()
+                .delete()
+                .from('cookenu_follower_connection')
+                .where({
+                    follower_id: userId,
+                    followed_id: userToUnfollowID,
+                })
+
+        } catch (error: any) {
+            throw new Error(error.sqlMessage || error.message)
+        }
+    }
+
+    getFollowers = async (userId: string): Promise<any> => {
+        try {
+            const result = await this.getConnection()
+                .select('*')
+                .from('cookenu_follower_connection')
+                .where({ follower_id: userId })
+
+            return result
+            
+        } catch (error: any) {
+            console.log(error)
+            throw new Error(error.sqlMessage || error.message)
+        }
+    }
+
+    getFollowings = async (userId: string): Promise<any> => {
+        try {
+            const result = await this.getConnection()
+                .select('*')
+                .from('cookenu_follower_connection')
+                .where({ followed_id: userId })
+
+            return result
+
+        } catch (error: any) {
+            console.log(error)
+            throw new Error(error.sqlMessage || error.message)
+        }
+    }
+
+  
 }
-
