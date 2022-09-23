@@ -1,7 +1,7 @@
 import { UserDatabase } from "../database/UserDatabase"
 import { InvalidInputError } from "../errors/InvalidInputError"
 import { NotFoundError } from "../errors/NotFoundError"
-import { SignupInputDTO, USER_ROLES } from "../models/User"
+import { LoginInputDTO, SignupInputDTO, User, USER_ROLES } from "../models/User"
 import { Authenticator } from "../services/Authenticator"
 import { HashManager } from "../services/HashManager"
 import { IdGenerator } from "../services/IdGenerator"
@@ -38,8 +38,7 @@ export class UserBusiness {
             throw new  InvalidInputError("Invalid password.  password must be a string at least 6 characters")
         }
 
-
-        
+       
         
 
         const registeredUser = await this.userDatabase.getUserByEmail(email)
@@ -56,9 +55,33 @@ export class UserBusiness {
         await this.userDatabase.insertUser(newUser)
 
         const token = this.authenticator.generateToken({ id })
-
+        
         return token
 }
 
+login = async (user: LoginInputDTO) => {
+
+    const { email, password } = user
+
+    if (!email || !password) {
+        throw new InvalidInputError("Invalid input. Email and password are required")
+    }
+
+    const userFromDB = await this.userDatabase.getUserByEmail(email)
+
+    if (!userFromDB) {
+        throw new NotFoundError("Invalid credentials")
+    }
+
+    const isPasswordCorrect = this.hashManager.compare(password, userFromDB.getPassword())
+
+    if (!isPasswordCorrect) {
+        throw new NotFoundError("Invalid credentials")
+    }
+
+    const token = this.authenticator.generateToken({ id: userFromDB.getId() })
+
+    return token
+}
 
 }

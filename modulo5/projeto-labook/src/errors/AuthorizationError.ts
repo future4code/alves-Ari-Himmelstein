@@ -2,7 +2,7 @@ import { BaseError } from "./BaseError";
 
 export class AuthorizationError extends BaseError {
     constructor(
-        message: string = "Permissão insuficiente" 
+        message: string  
     ) {
         super(403, message)
     }

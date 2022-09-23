@@ -1,3 +1,4 @@
+import {  User } from "../models/User"
 import { BaseDatabase } from "./BaseDatabase"
 
 export class UserDatabase extends BaseDatabase {
@@ -11,7 +12,8 @@ export class UserDatabase extends BaseDatabase {
                     id: newUser.getId(),
                     name: newUser.getName(),
                     email: newUser.getEmail(),
-                    password: newUser.getPassword()
+                    password: newUser.getPassword(),
+                    role: newUser.getRole() 
                 })
                 .into(UserDatabase.TABLE_NAME)
             
@@ -21,7 +23,7 @@ export class UserDatabase extends BaseDatabase {
         }
     }
 
-    getUserByEmail = async (email: string) => {
+     getUserByEmail = async (email: string) => {
         try {
             const result = await BaseDatabase.connection()
                 .select("*")

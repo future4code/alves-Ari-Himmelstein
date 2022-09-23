@@ -3,13 +3,7 @@ export enum USER_ROLES {
     ADMIN = "ADMIN"
 }
 
-export interface IUserDB {
-    id: string,
-    name: string,
-    email: string,
-    password: string,
-    role: USER_ROLES
-}
+
 
 export class User {
     constructor(
@@ -60,11 +54,27 @@ export class User {
         this.role = newRole
     }
 
+    static toUserModel(user: any): User {
+        return new User(
+            user.id,
+            user.name,
+            user.email,
+            user.password,
+            user.role
+        )
+    }
+
+   
   
 }
 
 export interface SignupInputDTO {
     name: string
+    email: string
+    password: string
+}
+
+export interface LoginInputDTO  {
     email: string
     password: string
 }

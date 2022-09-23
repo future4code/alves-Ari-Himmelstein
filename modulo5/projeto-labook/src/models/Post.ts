@@ -49,4 +49,12 @@ export class Post {
     public setLikes = (newLikes: number) => {
         this.likes = newLikes
     }
+   
+}
+
+export interface PostInputDTO  {
+    id: string
+    content: string
+    userId: string
+    token: string
 }
