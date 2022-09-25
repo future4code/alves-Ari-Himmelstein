@@ -37,3 +37,20 @@ Authorization: {{token}}
 
 
 ###
+# Pegar post
+GET http://localhost:3003/posts/201
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+# Curtir um Post
+POST http://localhost:3003/posts/146eff70-ddc8-4e8a-b73a-0593fb7ca51b/like
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+# "Descurtir" um Post
+PUT http://localhost:3003/posts/146eff70-ddc8-4e8a-b73a-0593fb7ca51b/dislike
+Content-Type: application/json
+Authorization: {{token}}
+

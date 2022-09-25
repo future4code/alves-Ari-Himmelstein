@@ -49,7 +49,14 @@ export class Post {
     public setLikes = (newLikes: number) => {
         this.likes = newLikes
     }
-   
+    public static toPostModel = (post: any): Post => {
+        return new Post(
+            post.id,
+            post.content,
+            post.userId,
+            
+        )
+    }
 }
 
 export interface PostInputDTO  {
@@ -57,4 +64,9 @@ export interface PostInputDTO  {
     content: string
     userId: string
     token: string
+}
+
+export interface PostDataInputDTO  {
+    token: string
+    postId: string
 }
