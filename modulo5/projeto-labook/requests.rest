@@ -1,0 +1,56 @@
+### Endpoint de teste
+GET http://localhost:3003/ping
+
+###
+# Signup
+POST http://localhost:3003/users/signup
+Content-Type: application/json
+
+{
+    "name": "Jonas",
+    "email": "jojo@gmail.com",
+    "password": "js2428"
+}
+
+###
+# login do usuário
+# @name login
+POST http://localhost:3003/users/login
+Content-Type: application/json
+
+{
+    "email": "jojo@gmail.com",
+    "password": "js2428"
+}
+
+###
+@token = {{login.response.body.token}}
+POST http://localhost:3003/posts
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+    "id": "",
+    "content": "vamos ver no que da...",
+    "user_id": "cdb12aeb-9187-4444-9aa7-63935f417aca"
+}
+
+
+###
+# Pegar post
+GET http://localhost:3003/posts/201
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+# Curtir um Post
+POST http://localhost:3003/posts/146eff70-ddc8-4e8a-b73a-0593fb7ca51b/like
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+# "Descurtir" um Post
+PUT http://localhost:3003/posts/146eff70-ddc8-4e8a-b73a-0593fb7ca51b/dislike
+Content-Type: application/json
+Authorization: {{token}}
+
