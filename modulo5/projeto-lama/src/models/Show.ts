@@ -57,3 +57,34 @@ export interface ICreateShowInputDTO {
     startsAt: Date
 
 }
+export interface ICreateShowOutputDTO {
+    message: string,
+    show: Show
+
+}
+
+export interface IGetShowsInputDTO {
+    token: string
+}
+
+export interface IGetShowsOutputDTO {
+    shows: Show[]
+}
+
+export interface IAddTicketInputDTO {
+    token: string,
+    showId: string
+}
+
+export interface IAddTicketOutputDTO {
+    message: string
+}
+
+export interface IRemoveTicketInputDTO {
+    token: string,
+    showId: string
+}
+
+export interface IRemoveTicketOutputDTO {
+    message: string
+}
