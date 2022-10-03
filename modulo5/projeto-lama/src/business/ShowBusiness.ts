@@ -1,8 +1,10 @@
 import { tickets } from "../database/migrations/data"
 import { ShowDatabase } from "../database/ShowDatabase"
 import { AuthenticationError } from "../errors/AuthenticationError"
+import { ConflictError } from "../errors/ConflictError"
+import { NotFoundError } from "../errors/NotFoundError"
 import { ParamsError } from "../errors/ParamsError"
-import { ICreateShowInputDTO, ICreateShowOutputDTO, IGetShowsInputDTO, IGetShowsOutputDTO, Show } from "../models/Show"
+import { IAddTicketInputDTO, IAddTicketOutputDTO, ICreateShowInputDTO, ICreateShowOutputDTO, IGetShowsInputDTO, IGetShowsOutputDTO, IRemoveTicketInputDTO, IRemoveTicketOutputDTO, ITicketDB, Show } from "../models/Show"
 import { Authenticator } from "../services/Authenticator"
 import { HashManager } from "../services/HashManager"
 import { IdGenerator } from "../services/IdGenerator"
@@ -72,7 +74,7 @@ export class ShowBusiness {
 
         for (let show of shows) {
             const showId = show.getId()
-            const likes = await this.showDatabase.getTickets(showId)
+            const tickets = await this.showDatabase.getTickets(showId)
             show.setTickets(tickets)
         }
 
@@ -83,5 +85,76 @@ export class ShowBusiness {
         return response
     }
 
+    public addTicket = async (input: IAddTicketInputDTO) => {
+        const { token, showId } = input
 
+        const payload = this.authenticator.getTokenPayload(token)
+
+        if (!payload) {
+            throw new AuthenticationError()
+        }
+
+        const postDB = await this.showDatabase.findShowById(showId)
+
+        if (!postDB) {
+            throw new NotFoundError("Show não encontrado")
+        }
+
+        const isAlreadyReserved = await this.showDatabase.findTicket(
+            showId,
+            payload.id
+        )
+
+        if (isAlreadyReserved) {
+            throw new ConflictError("Já reservado")
+        }
+
+        const likeDB: ITicketDB = {
+            id: this.idGenerator.generate(),
+            show_id: showId,
+            user_id: payload.id
+        }
+
+        await this.showDatabase.addTicket(likeDB)
+
+        const response: IAddTicketOutputDTO = {
+            message: "Reserva realizada com sucesso"
+        }
+
+        return response
+    }
+
+    public removeTicket = async (input: IRemoveTicketInputDTO) => {
+        const { token, showId } = input
+
+        const payload = this.authenticator.getTokenPayload(token)
+
+        if (!payload) {
+            throw new AuthenticationError()
+        }
+
+        const showDB = await this.showDatabase.findShowById(showId)
+
+        if (!showDB) {
+            throw new NotFoundError("Show não encontrado")
+        }
+
+        const isAlreadyReserved = await this.showDatabase.findTicket(
+            showId,
+            payload.id
+        )
+
+        if (!isAlreadyReserved) {
+            throw new NotFoundError("Ainda não reservado")
+        }
+
+        await this.showDatabase.removeTicket(showId, payload.id)
+
+        const response: IRemoveTicketOutputDTO = {
+            message: "Ticket removido com sucesso"
+        }
+
+        return response
+    }
 }
+

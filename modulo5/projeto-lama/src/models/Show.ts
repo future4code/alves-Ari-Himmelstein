@@ -88,3 +88,21 @@ export interface IRemoveTicketInputDTO {
 export interface IRemoveTicketOutputDTO {
     message: string
 }
+
+export interface IAddTicketInputDTO {
+    token: string,
+    showId: string
+}
+
+export interface IAddTicketOutputDTO {
+    message: string
+}
+
+export interface IRemoveTicketInputDTO {
+    token: string,
+    showId: string
+}
+
+export interface IRemoveTicketOutputDTO {
+    message: string
+}
