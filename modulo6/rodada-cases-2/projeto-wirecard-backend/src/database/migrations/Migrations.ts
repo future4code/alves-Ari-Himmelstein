@@ -1,6 +1,7 @@
 import { BaseDatabase } from "../BaseDatabase"
-import { OrderDatabase } from "../OrderDatabase"
-import { PizzaDatabase } from "../PizzaDatabase"
+import { BuyerDatabase } from "../BuyerDatabase"
+import { PaymentDatabase } from "../PaymentDatabase"
+
 
 class Migrations extends BaseDatabase {
     execute = async () => {
@@ -28,40 +29,37 @@ class Migrations extends BaseDatabase {
 
     createTables = async () => {
         await BaseDatabase.connection.raw(`
-        DROP TABLE IF EXISTS ${OrderDatabase.TABLE_ORDER_ITEMS};
-        DROP TABLE IF EXISTS ${OrderDatabase.TABLE_ORDERS};
-        DROP TABLE IF EXISTS ${PizzaDatabase.TABLE_PIZZAS_INGREDIENTS};
-        DROP TABLE IF EXISTS ${PizzaDatabase.TABLE_INGREDIENTS};
-        DROP TABLE IF EXISTS ${PizzaDatabase.TABLE_PIZZAS};
-
-        CREATE TABLE IF NOT EXISTS ${PizzaDatabase.TABLE_PIZZAS} (
-            name VARCHAR(255) PRIMARY KEY,
-            price DECIMAL(3,2) NOT NULL
-        );
-        
-        CREATE TABLE IF NOT EXISTS ${PizzaDatabase.TABLE_INGREDIENTS} (
-            name VARCHAR(255) PRIMARY KEY
-        );
-        
-        CREATE TABLE IF NOT EXISTS ${PizzaDatabase.TABLE_PIZZAS_INGREDIENTS} (
-            pizza_name VARCHAR(255) NOT NULL,
-            ingredient_name VARCHAR(255) NOT NULL,
-            FOREIGN KEY (pizza_name) REFERENCES Amb_Pizzas (name),
-            FOREIGN KEY (ingredient_name) REFERENCES Amb_Ingredients (name)
-        );
-        
-        CREATE TABLE IF NOT EXISTS ${OrderDatabase.TABLE_ORDERS} (
+        DROP TABLE IF EXISTS ${PaymentDatabase.TABLE_PAYMENTS};
+        DROP TABLE IF EXISTS ${BuyerDatabase.TABLE_BUYERS};
+        DROP TABLE IF EXISTS ${BuyerDatabase.TABLE_CLIENTS};
+      
+       
+        CREATE TABLE IF NOT EXISTS ${BuyerDatabase.TABLE_CLIENTS} (
             id VARCHAR(255) PRIMARY KEY
+            );
+            
+        CREATE TABLE IF NOT EXISTS ${BuyerDatabase.TABLE_BUYERS} (
+            name VARCHAR(255) NOT NULL,
+            email VARCHAR(255) UNIQUE NOT NULL,
+            cpf VARCHAR(255) PRIMARY KEY
         );
         
-        CREATE TABLE IF NOT EXISTS ${OrderDatabase.TABLE_ORDER_ITEMS} (
+        CREATE TABLE IF NOT EXISTS ${PaymentDatabase.TABLE_PAYMENTS} (
             id VARCHAR(255) PRIMARY KEY,
-            pizza_name VARCHAR(255) NOT NULL,
-            quantity TINYINT,
-            order_id VARCHAR(255) NOT NULL,
-            FOREIGN KEY (pizza_name) REFERENCES Amb_Pizzas (name),
-            FOREIGN KEY (order_id) REFERENCES Amb_Orders (id)
+            amount DECIMAL(4,2) NOT NULL,
+            type ENUM("CREDIT_CARD", "BOLETO") NOT NULL,
+            status ENUM("CREDIT_CARD", "BOLETO") NOT NULL,
+            card_holder_name VARCHAR (255),
+            card_number VARCHAR(255),
+            card_expiration_date DATE,
+            card_cvv VARCHAR(255),
+            boleto_number VARCHAR(255),
+            client_id VARCHAR(255) NOT NULL,
+            buyer_cpf VARCHAR(255) NOT NULL,
+            FOREIGN KEY (client_id) REFERENCES ${BuyerDatabase.TABLE_CLIENTS}(id),
+            FOREIGN KEY (buyer_cpf) REFERENCES ${BuyerDatabase.TABLE_BUYERS}(cpf)
         );
+        
         `)
     }
 
